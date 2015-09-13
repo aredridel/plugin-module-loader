@@ -1,6 +1,6 @@
 {
   "name": "plugin-module-loader",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A simple module to load a directory of modules as a plugin to a thing",
   "main": "index.js",
   "scripts": {
