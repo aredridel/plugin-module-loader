@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/aredridel/plugin-module-loader/issues"
   },
-  "homepage": "https://github.com/aredridel/plugin-module-loader#readme"
+  "homepage": "https://github.com/aredridel/plugin-module-loader#readme",
+  "dependencies": {
+    "bluebird": "^2.10.0",
+    "glob": "^5.0.14",
+    "verror": "^1.6.0"
+  }
 }

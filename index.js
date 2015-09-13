@@ -1,3 +1,8 @@
+var glob = P.promisify(require('glob'));
+var fs = P.promisifyAll(require('fs'));
+var VError = require('verror');
+var P = require('bluebird');
+
 function loadPluginsAndCollectErrors(pluginDir) {
   return glob(path.resolve(pluginDir, 'lib/node_modules/*/package.json')).then(function(plugins) {
     return plugins.map(function(plugin) {
