@@ -4,12 +4,12 @@ var fs = P.promisifyAll(require('fs'));
 var VError = require('verror');
 var path = require('path');
 
-function loadPluginsAndCollectErrors(pluginDir, config) {
+function loadPluginsAndCollectErrors(pluginDir) {
   return glob(path.resolve(pluginDir, 'lib/node_modules/*/package.json')).then(function(plugins) {
     return plugins.map(function(plugin) {
-      return fs.readFileAsync(plugin).then(JSON.parse).then(function(module) {
-        module.implementation = requirePlugin(module.name);
-        return module;
+      return fs.readFileAsync(plugin).then(JSON.parse).then(function(p) {
+        p.module = requirePlugin(p.name);
+        return p;
       }).catch(function(e) {
         return {
           name: path.basename(path.dirname(plugin)),
@@ -20,8 +20,8 @@ function loadPluginsAndCollectErrors(pluginDir, config) {
   });
 
   function requirePlugin(p) {
-    var module = require(path.resolve(pluginDir, 'lib/node_modules', p))(config);
-    if (!module.plugin || !module.name) {
+    var module = require(path.resolve(pluginDir, 'lib/node_modules', p));
+    if (typeof module != 'function') {
       throw new Error("This doesn't look like a plugin");
     }
     return module;
